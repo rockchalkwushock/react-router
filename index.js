@@ -1,5 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import router from 'react-router';
+let Router = router.Router;
+let Route = router.Route;
+let hashHistory = router.hashHistory;
+
+let routes = (
+  <Router history={hashHistory}>
+      <Route path="/contacts" component={ContactListContainer} />
+  </Router>
+);
 
 let CONTACTS = {
     0: {
@@ -47,3 +57,8 @@ let ContactList = (props) => {
 let ContactListContainer = () => {
     return <ContactList contacts={CONTACTS}/>;
 };
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    ReactDOM.render(routes, document.getElementById('app'));
+});
