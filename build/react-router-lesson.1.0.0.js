@@ -63,13 +63,19 @@
 	var Router = _reactRouter2.default.Router;
 	var Route = _reactRouter2.default.Route;
 	var hashHistory = _reactRouter2.default.hashHistory;
+	var IndexRoute = _reactRouter2.default.IndexRoute; // use for any route that does not change the parent route.
 	
 	var routes = _react2.default.createElement(
 	    Router,
 	    { history: hashHistory },
-	    _react2.default.createElement(Route, { path: '/contacts', component: ContactListContainer })
+	    _react2.default.createElement(
+	        Route,
+	        { path: '/contacts', component: App },
+	        _react2.default.createElement(IndexRoute, { component: ContactListContainer }),
+	        _react2.default.createElement(Route, { path: ':contactId', component: ContactContainer })
+	    )
 	);
-	
+	var Link = _reactRouter2.default.Link;
 	var CONTACTS = {
 	    0: {
 	        id: 0,
@@ -95,7 +101,11 @@
 	        _react2.default.createElement(
 	            'strong',
 	            null,
-	            props.name
+	            _react2.default.createElement(
+	                Link,
+	                { to: '/contacts/' + props.id },
+	                props.name
+	            )
 	        ),
 	        '\xA0 ',
 	        props.phoneNumber
@@ -119,7 +129,25 @@
 	};
 	
 	var ContactListContainer = function ContactListContainer() {
-	    return _react2.default.createElement(ContactList, { contacts: CONTACTS });
+	    var contact = CONTACTS[props.params.contactId];
+	    return _react2.default.createElement(Contact, { id: contact.id, name: contact.name, phoneNumber: contact.phoneNumber });
+	};
+	
+	var App = function App(props) {
+	    return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	            'h1',
+	            null,
+	            'Contacts App'
+	        ),
+	        _react2.default.createElement(
+	            'div',
+	            null,
+	            props.children
+	        )
+	    );
 	};
 	
 	document.addEventListener('DOMContentLoaded', function () {

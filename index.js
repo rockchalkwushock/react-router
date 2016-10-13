@@ -4,13 +4,17 @@ import router from 'react-router';
 let Router = router.Router;
 let Route = router.Route;
 let hashHistory = router.hashHistory;
+let IndexRoute = router.IndexRoute; // use for any route that does not change the parent route.
 
 let routes = (
-  <Router history={hashHistory}>
-      <Route path="/contacts" component={ContactListContainer} />
-  </Router>
+    <Router history={hashHistory}>
+        <Route path="/contacts" component={App}>
+            <IndexRoute component={ContactListContainer}/>
+            <Route path=":contactId" component={ContactContainer}/>
+        </Route>
+    </Router>
 );
-
+let Link = router.Link;
 let CONTACTS = {
     0: {
         id: 0,
@@ -32,14 +36,16 @@ let CONTACTS = {
 let Contact = (props) => (
     <div>
         <strong>
-            {props.name}
+            <Link to={'/contacts/' + props.id}>
+                {props.name}
+            </Link>
         </strong>
         &nbsp; {props.phoneNumber}
     </div>
 );
 
 let ContactList = (props) => {
-    let contacts = Object.keys(props.contacts).map(function(contactId, index) {
+    let contacts = Object.keys(props.contacts).map((contactId, index) => {
         let contact = props.contacts[contactId];
         return (
             <li key={index}>
@@ -55,9 +61,22 @@ let ContactList = (props) => {
 }
 
 let ContactListContainer = () => {
-    return <ContactList contacts={CONTACTS}/>;
+    let contact = CONTACTS[props.params.contactId];
+    return <Contact id={contact.id} name={contact.name} phoneNumber={contact.phoneNumber}/>;
 };
 
+let App = (props) => {
+    return (
+        <div>
+            <h1>
+                Contacts App
+            </h1>
+            <div>
+                {props.children}
+            </div>
+        </div>
+    );
+};
 
 document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(routes, document.getElementById('app'));
