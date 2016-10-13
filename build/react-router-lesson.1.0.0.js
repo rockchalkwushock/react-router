@@ -46,6 +46,10 @@
 
 	'use strict';
 	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -56,27 +60,21 @@
 	
 	var _reactRouter = __webpack_require__(172);
 	
-	var _reactRouter2 = _interopRequireDefault(_reactRouter);
+	var _App = __webpack_require__(235);
+	
+	var _App2 = _interopRequireDefault(_App);
+	
+	var _ContactListContainer = __webpack_require__(236);
+	
+	var _ContactListContainer2 = _interopRequireDefault(_ContactListContainer);
+	
+	var _ContactContainer = __webpack_require__(238);
+	
+	var _ContactContainer2 = _interopRequireDefault(_ContactContainer);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Router = _reactRouter2.default.Router;
-	var Route = _reactRouter2.default.Route;
-	var hashHistory = _reactRouter2.default.hashHistory;
-	var IndexRoute = _reactRouter2.default.IndexRoute; // use for any route that does not change the parent route.
-	
-	var routes = _react2.default.createElement(
-	    Router,
-	    { history: hashHistory },
-	    _react2.default.createElement(
-	        Route,
-	        { path: '/contacts', component: App },
-	        _react2.default.createElement(IndexRoute, { component: ContactListContainer }),
-	        _react2.default.createElement(Route, { path: ':contactId', component: ContactContainer })
-	    )
-	);
-	var Link = _reactRouter2.default.Link;
-	var CONTACTS = {
+	exports.default = CONTACTS = {
 	    0: {
 	        id: 0,
 	        name: 'Sarah Hughes',
@@ -94,61 +92,17 @@
 	    }
 	};
 	
-	var Contact = function Contact(props) {
-	    return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	            'strong',
-	            null,
-	            _react2.default.createElement(
-	                Link,
-	                { to: '/contacts/' + props.id },
-	                props.name
-	            )
-	        ),
-	        '\xA0 ',
-	        props.phoneNumber
-	    );
-	};
 	
-	var ContactList = function ContactList(props) {
-	    var contacts = Object.keys(props.contacts).map(function (contactId, index) {
-	        var contact = props.contacts[contactId];
-	        return _react2.default.createElement(
-	            'li',
-	            { key: index },
-	            _react2.default.createElement(Contact, { id: contact.id, name: contact.name, phoneNumber: contact.phoneNumber })
-	        );
-	    });
-	    return _react2.default.createElement(
-	        'ul',
-	        null,
-	        contacts
-	    );
-	};
-	
-	var ContactListContainer = function ContactListContainer() {
-	    var contact = CONTACTS[props.params.contactId];
-	    return _react2.default.createElement(Contact, { id: contact.id, name: contact.name, phoneNumber: contact.phoneNumber });
-	};
-	
-	var App = function App(props) {
-	    return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	            'h1',
-	            null,
-	            'Contacts App'
-	        ),
-	        _react2.default.createElement(
-	            'div',
-	            null,
-	            props.children
-	        )
-	    );
-	};
+	var routes = _react2.default.createElement(
+	    _reactRouter.Router,
+	    { history: _reactRouter.hashHistory },
+	    _react2.default.createElement(
+	        _reactRouter.Route,
+	        { path: '/contacts', component: _App2.default },
+	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _ContactListContainer2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: ':contactId', component: _ContactContainer2.default })
+	    )
+	);
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	    _reactDom2.default.render(routes, document.getElementById('app'));
@@ -27172,6 +27126,129 @@
 	
 	exports.default = (0, _createRouterHistory2.default)(_createHashHistory2.default);
 	module.exports = exports['default'];
+
+/***/ },
+/* 235 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = App = function App(props) {
+	    return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	            'h1',
+	            null,
+	            'Contacts App'
+	        ),
+	        _react2.default.createElement(
+	            'div',
+	            null,
+	            props.children
+	        )
+	    );
+	};
+
+/***/ },
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Contact = __webpack_require__(237);
+	
+	var _Contact2 = _interopRequireDefault(_Contact);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = ContactListContainer = function ContactListContainer(props) {
+	    var contact = CONTACTS[props.params.contactId];
+	    return _react2.default.createElement(_Contact2.default, { id: contact.id, name: contact.name, phoneNumber: contact.phoneNumber });
+	};
+	// import CONTACTS from '../index.js';
+
+/***/ },
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(172);
+	
+	var _reactRouter2 = _interopRequireDefault(_reactRouter);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = Contact = function Contact(props) {
+	    return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	            'strong',
+	            null,
+	            _react2.default.createElement(
+	                _reactRouter2.default,
+	                { to: '/contacts/' + props.id },
+	                props.name
+	            )
+	        ),
+	        '\xA0 ',
+	        props.phoneNumber
+	    );
+	};
+
+/***/ },
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Contact = __webpack_require__(237);
+	
+	var _Contact2 = _interopRequireDefault(_Contact);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = ContactContainer = function ContactContainer(props) {
+	  var contact = CONTACTS[props.params.contactId];
+	  return _react2.default.createElement(_Contact2.default, { id: contact.id, name: contact.name, phoneNumber: contact.phoneNumber });
+	};
+	// import CONTACTS from '../index.js';
 
 /***/ }
 /******/ ]);
