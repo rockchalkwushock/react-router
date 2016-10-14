@@ -29,7 +29,10 @@ let routes = (
     <Router history={hashHistory}>
         <Route path="/contacts" component={App}>
             <IndexRoute component={ContactListContainer}/>
-            <Route path=":contactId" component={ContactContainer}/>
+            <Route path=":contactId" component={ContactContainer}>
+              <IndexRoute component={ContactContainer}/>
+              <Route path="/contacts/:contactId/messages" component={ContactListContainer}/>
+            </Route>
         </Route>
     </Router>
 );
